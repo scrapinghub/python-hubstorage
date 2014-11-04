@@ -1,3 +1,4 @@
+import os
 from .job import Job
 from .jobq import JobQ
 from .activity import Activity
@@ -6,6 +7,7 @@ from .frontier import Frontier
 from .resourcetype import ResourceType, MappingResourceType
 from .utils import urlpathjoin, xauth
 
+_SHUB_JOBQ = os.environ.get('SHUB_JOBQ', 'http://33.33.33.51:5002')
 
 class Project(object):
 
@@ -106,6 +108,10 @@ class Settings(MappingResourceType):
 
     resource_type = 'projects'
     key_suffix = 'settings'
+
+    def __init__(self, client, projectid, *a, **kw):
+        super(Settings, self).__init__(client, projectid, *a, **kw)
+        self.url = urlpathjoin(_SHUB_JOBQ, projectid, 'settings')
 
 
 class Reports(ResourceType):

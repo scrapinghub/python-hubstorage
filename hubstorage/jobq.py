@@ -1,6 +1,9 @@
+import os
 from requests.exceptions import HTTPError
 from .resourcetype import ResourceType
+from .utils import urlpathjoin
 
+_SHUB_JOBQ = os.environ.get('SHUB_JOBQ', 'http://33.33.33.51:5002')
 
 class DuplicateJobError(Exception):
     """Raised when a job with same unique is pushed"""
@@ -15,6 +18,10 @@ class JobQ(ResourceType):
     PRIO_NORMAL = 2
     PRIO_HIGH = 3
     PRIO_HIGHEST = 4
+
+    def __init__(self, client, projectid, *a, **kw):
+        super(JobQ, self).__init__(client, projectid, *a, **kw)
+        self.url = urlpathjoin(_SHUB_JOBQ, projectid)
 
     def push(self, spider, **jobparams):
         jobparams['spider'] = spider

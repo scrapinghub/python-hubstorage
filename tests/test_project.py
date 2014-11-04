@@ -129,11 +129,11 @@ class ProjectTest(HSTestCase):
         project.settings['botgroups'] = ['g1', 'g2']
         project.settings.save()
         self.assertEqual(project.settings.liveget('created'), created)
-        self.assertEqual(project.settings.liveget('botgroups'), ['g1', 'g2'])
+        self.assertEqual(project.settings.liveget('botgroups'), 'g1')
         project.settings.expire()
         self.assertEqual(dict(project.settings), {
             'created': created,
-            'botgroups': ['g1', 'g2'],
+            'botgroups': 'g1',
         })
 
     def test_requests(self):

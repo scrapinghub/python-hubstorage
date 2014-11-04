@@ -256,21 +256,19 @@ class JobqTest(HSTestCase):
                          [j['key'] for j in jobs])
 
     def test_simple_botgroups(self):
-        self.project.settings['botgroups'] = ['g1', 'g2']
+        self.project.settings['botgroups'] = 'g1'
         self.project.settings.save()
         pq = self.project.jobq
         hq = self.hsclient.jobq
         q1 = pq.push(self.spidername)
-        q2 = pq.push(self.spidername)
-        self.assertEqual(hq.start(botgroup='g3'), None)
+        self.assertEqual(hq.start(botgroup='g2'), None)
         self.assertEqual(apipoll(hq.start, botgroup='g1')['key'], q1['key'])
-        self.assertEqual(apipoll(hq.start, botgroup='g2')['key'], q2['key'])
 
     @unittest.skipUnless(EXCLUSIVE, "test requires exclusive"
         " (without any active bots) access to HS. Set EXCLUSIVE_STORAGE"
         " env. var to activate")
     def test_botgroups(self):
-        self.project.settings['botgroups'] = ['g1', 'g2']
+        self.project.settings['botgroups'] = ['g1']
         self.project.settings.save()
         pq = self.project.jobq
         hq = self.hsclient.jobq
@@ -278,9 +276,9 @@ class JobqTest(HSTestCase):
         q2 = pq.push(self.spidername)
         q3 = pq.push(self.spidername)
         self.assertEqual(hq.start(), None)
-        self.assertEqual(hq.start(botgroup='g3'), None)
+        self.assertEqual(hq.start(botgroup='g2'), None)
         self.assertEqual(apipoll(hq.start, botgroup='g1')['key'], q1['key'])
-        self.assertEqual(apipoll(hq.start, botgroup='g2')['key'], q2['key'])
+        self.assertEqual(apipoll(hq.start, botgroup='g1')['key'], q2['key'])
 
         # cleanup project botgroups, q3 must be polled only by generic bots
         del self.project.settings['botgroups']
