@@ -42,7 +42,7 @@ class JobQ(ResourceType):
         r = list(self.apiget((spiderid, 'summary', _queuename), params=params))
         return (r and r[0] or None) if _queuename else r
 
-    def list(self, count=None, stop=None, startts=None, endts=None):
+    def list(self, count=None, stop=None, startts=None, endts=None, states=None):
         params = {}
         if count is not None:
             params['count'] = count
@@ -52,6 +52,7 @@ class JobQ(ResourceType):
             params['startts'] = startts
         if endts is not None:
             params['endts'] = endts
+        params['state'] = states
         return self.apiget(('list',), params=params)
 
     def start(self, job=None, **start_params):
