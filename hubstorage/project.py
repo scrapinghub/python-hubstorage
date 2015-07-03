@@ -25,6 +25,7 @@ class Project(object):
         self.frontier = Frontier(client, self.projectid, auth=auth)
         self.ids = Ids(client, self.projectid, auth=auth)
         self.settings = Settings(client, self.projectid, auth=auth)
+        self.user_settings = UserSettings(client, self.projectid, auth=auth)
         self.reports = Reports(client, self.projectid, auth=auth)
         self.spiders = Spiders(client, self.projectid, auth=auth)
 
@@ -106,6 +107,12 @@ class Settings(MappingResourceType):
 
     resource_type = 'projects'
     key_suffix = 'settings'
+
+
+class UserSettings(MappingResourceType):
+
+    resource_type = 'projects'
+    key_suffix = 'user_settings'
 
 
 class Reports(ResourceType):
