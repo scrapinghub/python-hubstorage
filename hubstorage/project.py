@@ -49,9 +49,7 @@ class Project(object):
 
     def push_job(self, spidername, **jobparams):
         data = self.jobq.push(spidername, **jobparams)
-        key = data['key']
-        jobauth = (key, data['auth'])
-        return Job(self.client, key, auth=self.auth, jobauth=jobauth)
+        return Job(self.client, data['key'], auth=self.auth)
 
     def start_job(self, **startparams):
         return self.client.start_job(projectid=self.projectid, auth=self.auth,

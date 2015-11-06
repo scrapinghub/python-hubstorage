@@ -62,7 +62,7 @@ class SystemTest(HSTestCase):
             self.assertEqual(job.metadata.get('state'), 'running')
             # run scraper
             try:
-                self._run_scraper(job.key, job.jobauth, close_reason=close_reason)
+                self._run_scraper(job.key, job.auth, close_reason=close_reason)
             except Exception as exc:
                 job.failed(message=str(exc))
                 # logging from runner must append and never remove messages logged
@@ -71,12 +71,12 @@ class SystemTest(HSTestCase):
             else:
                 job.finished()
 
-    def _run_scraper(self, jobkey, jobauth, close_reason=None):
+    def _run_scraper(self, jobkey, auth, close_reason=None):
         httpmethods = 'GET PUT POST DELETE HEAD OPTIONS TRACE CONNECT'.split()
         # Scraper - uses job level auth, no global or project auth available
         client = HubstorageClient(endpoint=self.endpoint)
         with closing(client) as scraperclient:
-            job = scraperclient.get_job(jobkey, auth=jobauth)
+            job = scraperclient.get_job(jobkey, auth=auth)
             for idx in xrange(self.MAGICN):
                 iid = job.items.write({'uuid': idx})
                 job.logs.debug('log debug %s' % idx, idx=idx)

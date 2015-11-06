@@ -109,7 +109,7 @@ class ProjectTest(HSTestCase):
 
         # keep a jobid for get_job and unreference job
         jobid = job.key
-        jobauth = job.auth
+        auth = job.auth
         del job
 
         self.assertTrue(list(project.jobs.list(self.spiderid, count=1)))
@@ -117,7 +117,7 @@ class ProjectTest(HSTestCase):
         self.assertTrue(list(project.logs.list(self.spiderid, count=1)))
         self.assertTrue(list(project.samples.list(self.spiderid, count=1)))
 
-        job = project.client.get_job(jobid, jobauth=jobauth)
+        job = project.client.get_job(jobid, auth=auth)
         job.purged()
 
     def test_settings(self):
