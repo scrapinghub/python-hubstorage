@@ -61,7 +61,6 @@ class JobsMetadataTest(HSTestCase):
 
     def test_jobauth(self):
         job = self.project.push_job(self.spidername)
-        self.assertEqual(job.auth, job.jobauth)
         samejob = self.hsclient.get_job(job.key)
         self.assertEqual(samejob.jobauth, job.jobauth)
         self.assertEqual(samejob.items.auth, self.project.auth)

@@ -12,7 +12,7 @@ class Job(object):
         assert len(self.key.split('/')) == 3, 'Jobkey must be projectid/spiderid/jobid: %s' % self.key
         self._jobauth = jobauth
         # It can't use self.jobauth because metadata is not ready yet
-        self.auth = jobauth or auth
+        self.auth = auth
         self.metadata = JobMeta(client, self.key, self.auth, cached=metadata)
         self.items = Items(client, self.key, self.auth)
         self.logs = Logs(client, self.key, self.auth)
