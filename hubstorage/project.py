@@ -70,7 +70,9 @@ class Jobs(ResourceType):
     resource_type = 'jobs'
 
     def list(self, _key=None, **params):
-        return self.apiget(_key, params=params)
+        warnings.warn('Method `jobs.list()` is deprecated, '
+                      'use `project.jobq.list()` instead', Warning)
+        return self.client.get_project(_key).jobq.list(**params)
 
 class Items(ResourceType):
 
