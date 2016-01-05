@@ -20,6 +20,9 @@ class Collections(DownloadableResource):
             else:
                 raise
 
+    def list(self):
+        return self.apiget('list')
+
     def set(self, _type, _name, _values):
         try:
             return self.apipost((_type, _name), is_idempotent=True, jl=_values)
