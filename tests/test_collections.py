@@ -16,6 +16,15 @@ class CollectionsTest(HSTestCase):
 
     test_collection_name = "test_collection_%s" % random.randint(1, 1000000)
 
+    def test_simple_count(self):
+        test_item = dict(_mkitem())
+        test_item['_key'] = 'a'
+
+        collection = self.project.collections.new_store(self.test_collection_name)
+        collection.set(test_item)
+
+        assert collection.count() == 1
+
     def post_get_delete_test(self):
         test_item = _mkitem()
         item_to_send = dict(test_item)
