@@ -52,10 +52,14 @@ class Frontier(ResourceType):
         for fp in fps:
             writer.write(fp)
 
-    def read(self, frontier, slot, mincount=None):
+    def read(self, frontier, slot, mincount=None, start=None):
         params = {}
         if mincount is not None:
             params['mincount'] = mincount
+
+        if start is not None:
+            params['start'] = start
+
         return self.apiget((frontier, 's', slot, 'q'), params=params)
 
     def delete(self, frontier, slot, ids):
