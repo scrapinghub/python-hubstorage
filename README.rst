@@ -1,6 +1,8 @@
-=================================
-HubStorage service client library
-=================================
+==============================================
+[DEPRECATED] HubStorage service client library
+==============================================
+
+[WARNING] This package is deprecated, please use `python-scrapinghub`_ (>=1.9.0) instead.
 
 .. image:: https://badge.fury.io/py/hubstorage.png
    :target: http://badge.fury.io/py/hubstorage
@@ -256,4 +258,4 @@ To retrieve fingerprints for a given slot:
 .. _Scrapinghub API: http://doc.scrapinghub.com/api.html
 .. _Collections: http://doc.scrapinghub.com/api/collections.html
 .. _Frontier: http://doc.scrapinghub.com/api/frontier.html
-
+.. _python-scrapinghub: https://github.com/scrapinghub/python-scrapinghub
